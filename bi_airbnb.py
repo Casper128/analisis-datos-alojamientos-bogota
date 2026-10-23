@@ -454,127 +454,28 @@ def holm(valores_p):
 # KRUSKAL-WALLIS
 # ================================================================
 
-def kruskal(
-    data,
-    grupo,
-    variable="precio_cop",
-    min_n=MIN_N
-):
-    """
-    Ejecuta la prueba no paramétrica Kruskal-Wallis.
+def kruskal(data, grupo, variable="precio_cop", min_n=MIN_N):
+    """Kruskal-Wallis entre grupos y cálculo de tamaño de efecto."""
 
-    Permite determinar si existen diferencias estadísticamente
-    significativas entre dos o más grupos independientes.
-
-    También calcula eta cuadrado basada en el estadístico H
-    como medida del tamaño del efecto.
-
-    Parámetros
-    ----------
-    data : pandas.DataFrame
-
-    grupo : str
-        Variable categórica.
-
-    variable : str
-        Variable numérica analizada.
-
-    min_n : int
-        Mínimo número de observaciones por grupo.
-
-    Retorna
-    -------
-    datos_filtrados : pandas.DataFrame
-
-    h : float
-        Estadístico Kruskal-Wallis.
-
-    p : float
-        Valor p.
-
-    eta2 : float
-        Tamaño del efecto.
-
-    k : int
-        Número de grupos comparados.
-    """
-
-    columnas = [
-        grupo,
-        variable
-    ]
-
-    faltantes = [
-        columna
-        for columna in columnas
-        if columna not in data.columns
-    ]
-
-    if faltantes:
-
-        raise KeyError(
-            f"Faltan columnas requeridas: {faltantes}"
-        )
-
-    datos = (
-        data[columnas]
-        .dropna()
-        .copy()
-    )
-
-    datos = filtrar_min_n(
-        datos,
-        grupo,
-        min_n
-    )
+    datos = data[[grupo, variable]].dropna().copy()
+    datos = filtrar_min_n(datos, grupo, min_n)
 
     muestras = [
         subgrupo[variable].to_numpy()
-        for _, subgrupo
-        in datos.groupby(grupo)
+        for _, subgrupo in datos.groupby(grupo)
     ]
 
     if len(muestras) < 2:
+        raise ValueError("Se requieren al menos dos grupos válidos.")
 
-        raise ValueError(
-            "Kruskal-Wallis requiere al menos "
-            "dos grupos válidos."
-        )
-
-    h, p = stats.kruskal(
-        *muestras
-    )
+    h, p = stats.kruskal(*muestras)
 
     n = len(datos)
     k = len(muestras)
 
-    if n <= k:
+    eta2 = max(0.0, (h - k + 1) / (n - k))
 
-        raise ValueError(
-            "No es posible calcular el tamaño del efecto."
-        )
-
-    # Eta cuadrado basada en H.
-    eta2 = (
-        h - k + 1
-    ) / (
-        n - k
-    )
-
-    # Protección frente a pequeñas desviaciones numéricas.
-    eta2 = max(
-        0.0,
-        float(eta2)
-    )
-
-    return (
-        datos,
-        float(h),
-        float(p),
-        eta2,
-        k
-    )
-
+return datos, float(h), float(p), float(eta2), k
 
 # ================================================================
 # POST-HOC DE DUNN
