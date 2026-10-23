@@ -1,0 +1,46 @@
+# Graphify y configuración local de Codex
+/graphify-out/
+/.codex/
+/.graphifyignore
+/AGENTS.md
+
+# Archivos del sistema operativo
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Cachés y archivos compilados de Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Entornos virtuales y configuración privada local
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Archivos temporales de Jupyter y editores
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Bloqueos y recuperaciones temporales de Tableau
+.~*.twbr
+
+# Resultados generados del análisis
+/resultados/
+/salida_fase3/
+
+# Se conservan los notebooks, datos/ y el dashboard validado.
+# Versiones locales anteriores del libro (se mantienen en disco).
+/Dashboard/Airbnb_Bogota.twbx
+/Dashboard/Airbnb_Bogota_2.twbx
