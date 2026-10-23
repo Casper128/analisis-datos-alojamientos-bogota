@@ -44,3 +44,6 @@ env/
 # Versiones locales anteriores del libro (se mantienen en disco).
 /Dashboard/Airbnb_Bogota.twbx
 /Dashboard/Airbnb_Bogota_2.twbx
+
+# Notas locales de validación de Tableau
+/Dashboard/VALIDACION_TABLEAU.md

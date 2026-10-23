@@ -63,7 +63,7 @@ La muestra actual conserva 17.998 anuncios y 7.795 anfitriones de una base compl
 
 El dashboard está en `Dashboard/Airbnb_Bogota_Validado.twbx` y consume `resultados/anuncios_dashboard.csv`: una fila por anuncio, 51 columnas e IDs con prefijos `a_` y `h_`. El cambio de alcance estadístico mantiene ese CSV. El extracto Hyper debe actualizarse desde Tableau si cambian sus datos; ejecutar Python no actualiza el libro por sí solo.
 
-El libro validado incluye tres vistas: resumen ejecutivo, exploración de precios y comparación por segmentos. Se corrigieron las unidades de la composición, las etiquetas de cobertura y la exclusión de celdas con menos de 30 anuncios. El paquete incluye el CSV y el extracto; las comprobaciones y los pasos de actualización están en [Dashboard/VALIDACION_TABLEAU.md](Dashboard/VALIDACION_TABLEAU.md).
+El libro validado incluye tres vistas: resumen ejecutivo, exploración de precios y comparación por segmentos. Se corrigieron las unidades de la composición, las etiquetas de cobertura y la exclusión de celdas con menos de 30 anuncios. El paquete incluye el CSV y el extracto.
 
 La historia de presentación es: pregunta → KPI y segmento → hallazgo observado → decisión posible → limitación. Los filtros permiten comparar ofertas semejantes. Las diferencias descriptivas no prueban diferencias poblacionales ni rentabilidad. Una captura no permite afirmar tendencias temporales.
 
