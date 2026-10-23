@@ -8,9 +8,6 @@
 **Semestre:** 2026-2  
 **Proyecto asignado:** Equipo 10 – Airbnb  
 
-
-# Análisis de Airbnb Bogotá
-
 El proyecto conserva **cuatro notebooks** y un módulo compartido, `bi_airbnb.py`. El archivo que alimenta el dashboard es **`resultados/anuncios_dashboard.csv`**. La refactorización mantiene las rutas, nombres y columnas de los CSV y JSON existentes; las imágenes ya no se exportan.
 
 ## Objetivo y preguntas de análisis
