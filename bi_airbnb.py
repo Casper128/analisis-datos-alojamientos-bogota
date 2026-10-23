@@ -454,6 +454,10 @@ def holm(valores_p):
 # KRUSKAL-WALLIS
 # ================================================================
 
+# ================================================================
+# KRUSKAL-WALLIS
+# ================================================================
+
 def kruskal(data, grupo, variable="precio_cop", min_n=MIN_N):
     """Kruskal-Wallis entre grupos y cálculo de tamaño de efecto."""
 
@@ -462,20 +466,34 @@ def kruskal(data, grupo, variable="precio_cop", min_n=MIN_N):
 
     muestras = [
         subgrupo[variable].to_numpy()
-        for _, subgrupo in datos.groupby(grupo)
+        for _, subgrupo in datos.groupby(grupo, sort=True)
     ]
 
     if len(muestras) < 2:
         raise ValueError("Se requieren al menos dos grupos válidos.")
 
-    h, p = stats.kruskal(*muestras)
+    estadistico_h, valor_p = stats.kruskal(*muestras)
 
     n = len(datos)
     k = len(muestras)
 
-    eta2 = max(0.0, (h - k + 1) / (n - k))
+    if n <= k:
+        raise ValueError(
+            "No hay suficientes observaciones para calcular el tamaño de efecto."
+        )
 
-return datos, float(h), float(p), float(eta2), k
+    eta2 = max(
+        0.0,
+        (estadistico_h - k + 1) / (n - k)
+    )
+
+    return (
+        datos,
+        float(estadistico_h),
+        float(valor_p),
+        float(eta2),
+        k
+    )
 
 # ================================================================
 # POST-HOC DE DUNN
