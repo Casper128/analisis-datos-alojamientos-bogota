@@ -1,93 +1,311 @@
-# Análisis de Airbnb Bogotá
+# Análisis de Airbnb Bogotá --- Evento Evaluativo 3
 
-**Institución:** Institución Universitaria ITM · **Programa:** Ingeniería de Sistemas
-**Curso:** Análisis de Datos · **Semestre:** 2026-2 · **Equipo:** 10 · **Entrega:** Evento Evaluativo 3
+**Institución:** Institución Universitaria ITM\
+**Programa:** Ingeniería de Sistemas\
+**Asignatura:** Análisis de Datos\
+**Semestre:** 2026-2\
+**Equipo:** 10\
+**Fuente de datos:** Inside Airbnb --- captura del 16 de septiembre de
+2026
 
-Proyecto universitario de análisis de datos y BI basado en las guías del profesor Daniel Alexis Nieto Mora, semanas 4, 5, 6 y 7–8. La referencia y sus páginas están en [REFERENCIAS_CURSO.md](REFERENCIAS_CURSO.md).
+**Integrantes:** - Franyelica Valentina Garcia Fernandez - Darwin Osorio
+Ospina - Dario Giovanny Montoya - Santiago Pabón Acevedo
 
-## Alcance y preguntas
+## 1. Objetivo
 
-El proyecto utiliza estadística descriptiva, correlación de Spearman, interpretación de hipótesis y BI. No incluye pruebas o análisis estadísticos complementarios.
+### Descripción general
 
-| Pregunta | Tratamiento |
-| --- | --- |
-| P1: ¿Cómo se describen los precios por localidad? | Conteo, media, mediana, cuartiles y RIQ |
-| P2: ¿Cómo se describen los precios por tipo de alojamiento? | Los mismos descriptivos, sin contrastes entre grupos |
-| H3: ¿Existe asociación entre capacidad y precio? | Spearman: H0 rho = 0; H1 rho ≠ 0 |
-| H4: ¿Existe asociación entre calificación y precio? | Spearman: H0 rho = 0; H1 rho ≠ 0 |
-| P5: ¿Cómo se describen los indicadores de anfitriones con uno y varios anuncios? | Conteos, medias y medianas por grupo, una fila por anfitrión |
+Proyecto de análisis de datos y Business Intelligence sobre la oferta de
+alojamientos de Airbnb en Bogotá, con datos de Inside Airbnb
+correspondientes a la captura del 16 de septiembre de 2026. El propósito
+es convertir los datos en información útil para comprender el mercado
+mediante preparación y modelado de datos, indicadores clave (KPIs),
+estadística descriptiva, correlación de Spearman y un dashboard en
+Tableau.
 
-Se conserva la numeración H3/H4 para enlazarla con el dashboard. P1, P2 y P5 son preguntas descriptivas: no se afirma significancia estadística entre sus grupos. Los descriptivos incluyen todos los grupos con datos y muestran su tamaño.
+### Problema de análisis
 
-Para H3/H4 se usa α = 0,05 y se interpreta cada contraste por separado. El valor p no es la probabilidad de que H0 sea verdadera; no rechazar H0 no demuestra que sea cierta. Rho indica dirección y magnitud de la asociación. Las observaciones de un anfitrión pueden estar relacionadas y la captura no es una muestra aleatoria: la inferencia es exploratoria, sin causalidad ni garantía de generalización.
+La oferta presenta diferencias en precio, ubicación, capacidad, tipo de
+alojamiento, calificación, actividad reciente y características del
+anfitrión. Observar estas variables por separado dificulta identificar
+cuáles se asocian con el precio y cómo resumirlas para apoyar
+decisiones. El proyecto aborda estas preguntas mediante análisis
+descriptivos y asociaciones estadísticas, sin atribuir causalidad.
 
-## Organización y ejecución
+### Objetivo general
 
-Crear un entorno virtual con Python 3.14 e instalar `requirements.txt`. Seleccionar ese intérprete en Jupyter y ejecutar todas las celdas en orden:
+Analizar los alojamientos de Airbnb en Bogotá mediante técnicas de
+Business Intelligence y estadística descriptiva para identificar
+patrones, diferencias y asociaciones entre el precio y variables del
+alojamiento y del anfitrión, comunicando los resultados mediante KPIs y
+dashboards interactivos.
 
-| Notebook | Responsabilidad |
-| --- | --- |
-| `01_preparacion_datos.ipynb` | Limpieza, transformaciones, modelo en estrella y trazabilidad |
-| `02_kpis_dashboard.ipynb` | Descriptivos básicos, seis KPIs y exportación para Tableau |
-| `03_contrastes_hipotesis.ipynb` | Descriptivos de P1/P2/P5 y correlaciones H3/H4 |
-| `04_figuras_resumen.ipynb` | Control de exportaciones, conciliación de KPIs y conclusiones |
+### Objetivos específicos
 
-`bi_airbnb.py` centraliza rutas, lectura/escritura CSV, registro de limpieza, descriptivos y Spearman. Los notebooks deben ejecutarse desde la raíz del proyecto. Las visualizaciones permanecen en Tableau; no se exportan imágenes desde Python.
+1.  Preparar, limpiar y transformar el conjunto de datos para construir
+    una base analítica consistente.
+2.  Estructurar los datos en dimensiones, métricas y tablas orientadas
+    al análisis.
+3.  Definir indicadores clave que resuman el comportamiento de la
+    oferta.
+4.  Describir el precio por localidad y por tipo de alojamiento.
+5.  Evaluar la asociación del precio con la capacidad y con la
+    calificación.
+6.  Comparar descriptivamente a los anfitriones con un solo anuncio y a
+    los que tienen varios anuncios.
+7.  Construir un dashboard en Tableau que comunique los resultados.
+8.  Formular conclusiones, limitaciones y posibles decisiones basadas en
+    la evidencia.
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-```
+### Preguntas de análisis
 
-## Preparación y modelo de datos
+  -----------------------------------------------------------------------
+  ID                      Pregunta                Tratamiento
+  ----------------------- ----------------------- -----------------------
+  P1                      ¿Cómo se distribuye el  Descriptivo
+                          precio entre las        
+                          localidades de Bogotá?  
 
-La fuente es `datos/listings_bogota.csv`. Se seleccionan las variables útiles, se preservan IDs como texto y se verifica que no haya registros contradictorios. Los precios se convierten respetando el formato de la fuente y se conserva su texto original. Se mantienen las decisiones de limpieza de la base existente: precios no válidos y atípicos marcados mediante RIQ sobre log(precio) quedan fuera de la muestra analítica, sin borrarlos de la base completa. Esta regla es una decisión de preparación del proyecto, no una prueba de hipótesis ni una técnica atribuida como exigencia a las guías suministradas.
+  P2                      ¿Cómo varía el precio   Descriptivo
+                          según el tipo de        
+                          alojamiento?            
 
-Se normalizan nombres de localidades y tipos, se crean métricas interpretables y se conservan las calificaciones faltantes. El modelo contiene `fact_anuncios`, `dim_localidad`, `dim_tipo_alojamiento` y `dim_anfitrion`. Se verifican claves y conservación de filas al cruzar tablas. Las claves numéricas se reconstruyen en cada carga; se regeneran hechos y dimensiones juntos.
+  H3                      ¿Existe asociación      Correlación de Spearman
+                          entre la capacidad y el 
+                          precio?                 
 
-No se aplica PCA ni escalamiento para modelos predictivos: el objetivo es comparar indicadores en COP, días, huéspedes y puntos. Un ID de dimensión no es una distancia numérica. Los CSV constituyen un modelo analítico local de una captura, no un Data Warehouse histórico desplegado.
+  H4                      ¿Existe asociación      Correlación de Spearman
+                          entre la calificación y 
+                          el precio?              
 
-## KPIs y dashboard
+  P5                      ¿Cómo se comportan los  Descriptivo
+                          anfitriones con varios  
+                          anuncios frente a los   
+                          de un solo anuncio en   
+                          precio, ocupación,      
+                          reseñas y calificación? 
+  -----------------------------------------------------------------------
 
-La muestra actual conserva 17.998 anuncios y 7.795 anfitriones de una base completa de 19.505 anuncios. Las salidas ejecutadas son la fuente para consultar valores vigentes.
+## 2. Metodología
 
-| KPI | Medida | Alcance |
-| --- | --- | --- |
-| K1 | Precio mediano por noche | Precio publicado, no ingreso |
-| K2 | Precio mediano por huésped | Tarifa dividida por capacidad anunciada |
-| K3 | Calificación promedio | Solo calificaciones disponibles |
-| K4 | Proporción de anuncios con reseñas en 12 meses | Señal de actividad, no ocupación verificada |
-| K5 | Ocupación estimada mediana | Estimación de la fuente |
-| K6 | Proporción de anfitriones con varios anuncios | Cuenta anfitriones distintos, no anuncios |
+El proyecto se desarrolló a partir del conjunto de datos de Inside
+Airbnb correspondiente a una captura del 16 de septiembre de 2026, que
+contiene inicialmente **19.505 anuncios y 90 columnas**.
 
-El dashboard está en `Dashboard/Airbnb_Bogota_Validado.twbx` y consume `resultados/anuncios_dashboard.csv`: una fila por anuncio, 51 columnas e IDs con prefijos `a_` y `h_`. El cambio de alcance estadístico mantiene ese CSV. El extracto Hyper debe actualizarse desde Tableau si cambian sus datos; ejecutar Python no actualiza el libro por sí solo.
+### 2.1. Preparación y modelado de datos
 
-El libro validado incluye tres vistas: resumen ejecutivo, exploración de precios y comparación por segmentos. Se corrigieron las unidades de la composición, las etiquetas de cobertura y la exclusión de celdas con menos de 30 anuncios. El paquete incluye el CSV y el extracto.
+La preparación se implementó en el notebook
+`01_preparacion_datos.ipynb`, mediante las siguientes actividades:
 
-La historia de presentación es: pregunta → KPI y segmento → hallazgo observado → decisión posible → limitación. Los filtros permiten comparar ofertas semejantes. Las diferencias descriptivas no prueban diferencias poblacionales ni rentabilidad. Una captura no permite afirmar tendencias temporales.
+-   Selección de variables relevantes y revisión de la calidad de los
+    datos.
+-   Conversión y validación de los precios publicados en pesos
+    colombianos (COP).
+-   Identificación de valores no válidos y valores atípicos mediante el
+    criterio de 1,5 veces el rango intercuartílico (RIQ) aplicado al
+    logaritmo del precio.
+-   Normalización de categorías, construcción de métricas derivadas y
+    conservación de las calificaciones faltantes sin imputarlas.
+-   Registro de exclusiones y generación del diccionario de datos y los
+    archivos de trazabilidad.
+-   Construcción de un modelo analítico compuesto por una tabla de
+    hechos (`fact_anuncios`) y dimensiones de localidad, tipo de
+    alojamiento y anfitrión.
 
-## Salidas actuales
+Después de aplicar los criterios de preparación establecidos, se obtuvo
+una muestra analítica de **17.998 anuncios y 7.795 anfitriones**. Los
+registros excluidos se conservan en los archivos de control para
+facilitar la trazabilidad del proceso.
 
-- `salida_fase3/`: hechos, dimensiones, base analítica, resumen por anfitrión, excluidos, calidad, registro, diccionario e informe de preparación.
-- `resultados/`: `kpis.csv`, `anuncios_dashboard.csv`, `anfitriones_dashboard.csv`, `descriptivos_P1.csv`, `descriptivos_P2.csv`, `descriptivos_anfitriones.csv`, `hipotesis.csv` y `resumen.json`.
+### 2.2. Indicadores y análisis estadístico
 
-`hipotesis.csv` contiene solo H3 y H4, con n, rho, p y decisión. El resumen de anfitriones conserva el nombre técnico `grupo_h5` por compatibilidad con los datos existentes; representa la agrupación descriptiva de P5. Los resultados de los métodos retirados ya no forman parte de la entrega.
+En `02_kpis_dashboard.ipynb` se calcularon seis indicadores para resumir
+el comportamiento de la oferta: precio mediano por noche, precio mediano
+por huésped, calificación promedio, proporción de anuncios con reseñas
+recientes, ocupación estimada mediana y proporción de anfitriones con
+varios anuncios.
 
-## Validación del alcance actual
+En `03_contrastes_hipotesis.ipynb` se desarrollaron los análisis
+descriptivos de precios por localidad y tipo de alojamiento, así como la
+comparación descriptiva entre anfitriones con un anuncio y anfitriones
+con dos o más anuncios. También se evaluaron dos hipótesis de asociación
+mediante el coeficiente de correlación de Spearman:
 
-Los cuatro notebooks se ejecutaron completos. Los CSV de anuncios y anfitriones para Tableau permanecen idénticos byte por byte; los valores de los seis KPIs se conservan. H3/H4 mantienen sus coeficientes y valores p. Los descriptivos por localidad y alojamiento cubren ahora todos los grupos. Se retiraron las salidas de las pruebas eliminadas y se regeneró el resumen sin diagnósticos ni sensibilidad adicionales.
+-   **H3:** relación entre la capacidad del alojamiento y el precio.
+-   **H4:** relación entre la calificación del alojamiento y el precio.
 
-## Graphify
+Para estas dos pruebas se estableció un nivel de significancia de **α =
+0,05**. La interpretación considera tanto el valor p como la magnitud y
+dirección del coeficiente de correlación.
 
-Graphify es una herramienta de navegación del código, independiente del análisis académico:
+Las comparaciones por localidad, tipo de alojamiento y grupo de
+anfitriones son descriptivas en el alcance actualizado del proyecto; no
+se presentan como pruebas de diferencias estadísticamente
+significativas. Finalmente, `04_figuras_resumen.ipynb` permite verificar
+las exportaciones, conciliar los indicadores y consolidar las
+conclusiones.
 
-```bash
-uv tool install graphifyy
-graphify install --platform codex --project
-graphify extract . --code-only
-graphify cluster-only . --no-label
-graphify update .
-```
+### 2.3. Visualización y Business Intelligence
 
-El mapa del módulo está en `graphify-out/graph.html`. El mapa conjunto con las celdas de notebooks está en `graphify-out/proyecto_completo/graphify-out/graph.html`; se construye desde copias auxiliares en `graphify-out/proyecto_fuentes/`. Es una instantánea estructural, no una representación completa de operaciones dinámicas de pandas. Editar los notebooks originales, no las copias. Graphify, Codex y los resultados locales están excluidos mediante `.gitignore`.
+Se construyó un dashboard interactivo en Tableau con tres vistas:
+
+-   **Resumen ejecutivo:** presenta los seis KPIs y una visión general
+    de la oferta.
+-   **Exploración de precios:** permite examinar la distribución de los
+    precios y su relación con la capacidad.
+-   **Comparación por segmentos:** presenta los precios medianos según
+    la localidad y el tipo de alojamiento.
+
+Los filtros de localidad, tipo de alojamiento y anfitrión permiten
+explorar los datos desde diferentes perspectivas. Las visualizaciones se
+alimentan de los archivos CSV generados durante el procesamiento.
+
+## 3. Resultados
+
+### 3.1. Indicadores clave (KPIs)
+
+  ------------------------------------------------------------------------
+  ID                    Indicador                                Resultado
+  --------------------- --------------------- ----------------------------
+  K1                    Precio mediano por                     160.000 COP
+                        noche                 
+
+  K2                    Precio mediano por                      60.000 COP
+                        huésped               
+
+  K3                    Calificación promedio             4,70 / 5 (4,704)
+                        (14.549 anuncios con  
+                        calificación)         
+
+  K4                    Anuncios con reseñas                       67,18 %
+                        en los últimos 12     
+                        meses                 
+
+  K5                    Ocupación estimada                          6,58 %
+                        mediana               
+
+  K6                    Anfitriones con                            30,51 %
+                        varios anuncios       
+                        (2.378 de 7.795)      
+  ------------------------------------------------------------------------
+
+-   Se utiliza la mediana debido a la asimetría de los precios y a la
+    influencia que pueden tener los valores extremos.
+-   La ocupación es una estimación derivada de la metodología del
+    proyecto, no una medición directa de las reservas reales.
+
+### 3.2. Descriptivos de precio (P1 y P2)
+
+**Por localidad (P1).** Las medianas varían entre localidades. Entre las
+más altas se encuentran Chapinero (aproximadamente 190.531 COP), Barrios
+Unidos (148.749 COP) y Teusaquillo (139.000 COP). Entre las más bajas
+figuran Bosa (87.906 COP) y Sumapaz (72.000 COP). Sumapaz tiene pocos
+anuncios, por lo que su resultado debe interpretarse con cautela.
+
+**Por tipo de alojamiento (P2).** La oferta se concentra principalmente
+en viviendas completas:
+
+  Tipo de alojamiento       Número de anuncios
+  ----------------------- --------------------
+  Vivienda completa                     13.200
+  Habitación privada                     4.694
+  Habitación compartida                     77
+  Habitación de hotel                       27
+
+**Por segmentos (localidad y tipo).** Dentro de una misma localidad, los
+precios medianos varían según el tipo de alojamiento. Por ejemplo, en
+Chapinero, la mediana de la vivienda completa es de aproximadamente
+199.000 COP, frente a unos 122.000 COP para la habitación privada. Los
+segmentos con menos de 30 anuncios deben interpretarse con cautela.
+
+Estas diferencias son descriptivas: no prueban diferencias poblacionales
+ni permiten concluir cuál segmento es más rentable.
+
+### 3.3. Asociaciones entre variables (H3 y H4)
+
+  Hipótesis   Variables                       n   ρ de Spearman    Valor p Decisión
+  ----------- ------------------------ -------- --------------- ---------- -------------
+  H3          Capacidad -- precio        17.998           0,480   \< 0,001 Rechazar H0
+  H4          Calificación -- precio     14.549           0,046   \< 0,001 Rechazar H0
+
+-   **H3 --- Capacidad y precio:** se observa una asociación positiva de
+    magnitud moderada. En los datos analizados, los alojamientos con
+    mayor capacidad tienden a presentar precios más altos.
+-   **H4 --- Calificación y precio:** aunque el valor p es pequeño, el
+    coeficiente está muy cerca de cero. La asociación es muy débil y
+    tiene poca relevancia práctica. Con muestras grandes, un valor p
+    pequeño no implica necesariamente una relación fuerte.
+-   Ambos resultados indican asociación, no causalidad.
+
+Los resultados detallados están en `resultados/hipotesis.csv`, que
+contiene únicamente H3 y H4, junto con el tamaño de muestra, el
+coeficiente rho, el valor p y la decisión estadística.
+
+### 3.4. Anfitriones (P5)
+
+Se comparan descriptivamente los anfitriones con un solo anuncio (5.417)
+y aquellos con dos o más anuncios (2.378), considerando precio,
+ocupación estimada, reseñas y calificación. En el alcance actualizado no
+se afirma significancia estadística entre estos grupos.
+
+Los resultados están en `resultados/descriptivos_anfitriones.csv`. El
+nombre técnico `grupo_h5` se conserva por compatibilidad con los datos
+existentes y representa la agrupación descriptiva de P5.
+
+## 4. Conclusiones
+
+La oferta de Airbnb en Bogotá está concentrada en dos tipos de
+alojamiento: la vivienda completa, con 13.200 anuncios, y la habitación
+privada, con 4.694. Las habitaciones compartidas y las de hotel tienen
+una participación mucho menor. Esto significa que la mayor parte de los
+resultados generales del dashboard está determinada por las dos primeras
+categorías. También se observa una concentración de anuncios en ciertos
+segmentos: las viviendas completas de Chapinero representan alrededor de
+4.083 anuncios y, junto con Usaquén y Teusaquillo, suman 8.356 anuncios,
+cerca del 46 % de la muestra.
+
+Los precios cambian entre localidades, por lo que el valor mediano
+general de 160.000 COP no describe por igual todos los sectores de
+Bogotá. Bosa y Sumapaz presentan medianas bajas, aunque en Sumapaz hay
+muy pocos anuncios y el resultado debe tomarse con precaución. El
+histograma también muestra que hay muchos anuncios en los rangos de
+precios bajos y medios, mientras que los precios más altos aparecen con
+menor frecuencia. Esto respalda el uso de la mediana para resumir los
+precios.
+
+El tipo de alojamiento también se relaciona con el precio. En
+localidades con suficientes anuncios, las viviendas completas suelen
+presentar medianas superiores a las habitaciones privadas. Sin embargo,
+el comportamiento no es idéntico en todos los segmentos y las
+comparaciones con pocas observaciones pueden cambiar considerablemente.
+La localidad también importa dentro de un mismo tipo de alojamiento: por
+ejemplo, las viviendas completas de Chapinero y Usaquén presentan
+medianas cercanas a 200.000 COP, mientras que en Kennedy la mediana es
+de aproximadamente 136.698 COP.
+
+La gráfica de dispersión y la correlación de Spearman muestran que los
+alojamientos con mayor capacidad tienden a tener precios más altos (ρ =
+0,480). Aun así, los puntos están bastante dispersos, por lo que la
+capacidad no explica por sí sola las diferencias de precio. En cambio,
+la relación entre calificación y precio es muy débil (ρ = 0,046). Aunque
+su valor p es inferior a 0,001, el coeficiente cercano a cero indica que
+la asociación tiene poca relevancia práctica. Por eso, es importante
+interpretar el tamaño de la relación y no solamente la significancia
+estadística.
+
+En cuanto a la actividad, el 67,18 % de los anuncios tuvo reseñas
+durante los últimos doce meses, mientras que la ocupación estimada
+mediana es del 6,58 %. Esta última cifra debe interpretarse teniendo
+presente que es una estimación y no un registro de reservas reales.
+Además, el 30,51 % de los anfitriones tiene dos o más anuncios, lo que
+permite distinguir entre anfitriones con diferentes niveles de presencia
+en la plataforma, sin que esto implique necesariamente mayores ingresos
+o rentabilidad.
+
+En general, las gráficas y los indicadores permiten observar que la
+localidad, el tipo de alojamiento y la capacidad son dimensiones útiles
+para comparar los precios publicados en Airbnb Bogotá. Los resultados
+describen los anuncios incluidos en la captura del 16 de septiembre de
+2026 y no deben interpretarse como tendencias a lo largo del tiempo ni
+como evidencia de relaciones causales.
+
