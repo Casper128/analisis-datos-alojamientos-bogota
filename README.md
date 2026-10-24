@@ -170,12 +170,12 @@ anuncios, por lo que su resultado debe interpretarse con cautela.
 **Por tipo de alojamiento (P2).** La oferta se concentra principalmente
 en viviendas completas:
 
-  Tipo de alojamiento       Número de anuncios
-  ----------------------- --------------------
-  Vivienda completa                     13.200
-  Habitación privada                     4.694
-  Habitación compartida                     77
-  Habitación de hotel                       27
+| Tipo de alojamiento | Número de anuncios |
+|---|---:|
+| Vivienda completa | 13.200 |
+| Habitación privada | 4.694 |
+| Habitación compartida | 77 |
+| Habitación de hotel | 27 |
 
 **Por segmentos (localidad y tipo).** Dentro de una misma localidad, los
 precios medianos varían según el tipo de alojamiento. Por ejemplo, en
@@ -188,10 +188,10 @@ ni permiten concluir cuál segmento es más rentable.
 
 ### 3.3. Asociaciones entre variables (H3 y H4)
 
-  Hipótesis   Variables                       n   ρ de Spearman    Valor p Decisión
-  ----------- ------------------------ -------- --------------- ---------- -------------
-  H3          Capacidad -- precio        17.998           0,480   \< 0,001 Rechazar H0
-  H4          Calificación -- precio     14.549           0,046   \< 0,001 Rechazar H0
+| Hipótesis | Variables | n | ρ de Spearman | Valor p | Decisión |
+|---|---|---:|---:|---:|---|
+| H3 | Capacidad – precio | 17.998 | 0,480 | < 0,001 | Rechazar H₀ |
+| H4 | Calificación – precio | 14.549 | 0,046 | < 0,001 | Rechazar H₀ |
 
 -   **H3 --- Capacidad y precio:** se observa una asociación positiva de
     magnitud moderada. En los datos analizados, los alojamientos con
