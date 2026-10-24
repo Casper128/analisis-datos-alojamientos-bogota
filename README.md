@@ -59,32 +59,13 @@ dashboards interactivos.
 
 ### Preguntas de análisis
 
-  -----------------------------------------------------------------------
-  ID                      Pregunta                Tratamiento
-  ----------------------- ----------------------- -----------------------
-  P1                      ¿Cómo se distribuye el  Descriptivo
-                          precio entre las        
-                          localidades de Bogotá?  
-
-  P2                      ¿Cómo varía el precio   Descriptivo
-                          según el tipo de        
-                          alojamiento?            
-
-  H3                      ¿Existe asociación      Correlación de Spearman
-                          entre la capacidad y el 
-                          precio?                 
-
-  H4                      ¿Existe asociación      Correlación de Spearman
-                          entre la calificación y 
-                          el precio?              
-
-  P5                      ¿Cómo se comportan los  Descriptivo
-                          anfitriones con varios  
-                          anuncios frente a los   
-                          de un solo anuncio en   
-                          precio, ocupación,      
-                          reseñas y calificación? 
-  -----------------------------------------------------------------------
+| ID | Pregunta | Tratamiento |
+|---|---|---|
+| P1 | ¿Cómo se distribuye el precio entre las localidades de Bogotá? | Descriptivo |
+| P2 | ¿Cómo varía el precio según el tipo de alojamiento? | Descriptivo |
+| H3 | ¿Existe asociación entre la capacidad y el precio? | Correlación de Spearman |
+| H4 | ¿Existe asociación entre la calificación y el precio? | Correlación de Spearman |
+| P5 | ¿Cómo se comportan los anfitriones con varios anuncios frente a los de un solo anuncio en precio, ocupación, reseñas y calificación? | Descriptivo |
 
 ## 2. Metodología
 
@@ -164,30 +145,14 @@ alimentan de los archivos CSV generados durante el procesamiento.
 
 ### 3.1. Indicadores clave (KPIs)
 
-  ------------------------------------------------------------------------
-  ID                    Indicador                                Resultado
-  --------------------- --------------------- ----------------------------
-  K1                    Precio mediano por                     160.000 COP
-                        noche                 
-
-  K2                    Precio mediano por                      60.000 COP
-                        huésped               
-
-  K3                    Calificación promedio             4,70 / 5 (4,704)
-                        (14.549 anuncios con  
-                        calificación)         
-
-  K4                    Anuncios con reseñas                       67,18 %
-                        en los últimos 12     
-                        meses                 
-
-  K5                    Ocupación estimada                          6,58 %
-                        mediana               
-
-  K6                    Anfitriones con                            30,51 %
-                        varios anuncios       
-                        (2.378 de 7.795)      
-  ------------------------------------------------------------------------
+| ID | Indicador | Resultado |
+|---|---|---:|
+| K1 | Precio mediano por noche | 160.000 COP |
+| K2 | Precio mediano por huésped | 60.000 COP |
+| K3 | Calificación promedio (14.549 anuncios con calificación) | 4,70 / 5 (4,704) |
+| K4 | Anuncios con reseñas en los últimos 12 meses | 67,18 % |
+| K5 | Ocupación estimada mediana | 6,58 % |
+| K6 | Anfitriones con varios anuncios (2.378 de 7.795) | 30,51 % |
 
 -   Se utiliza la mediana debido a la asimetría de los precios y a la
     influencia que pueden tener los valores extremos.
